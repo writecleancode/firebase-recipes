@@ -35,6 +35,12 @@ export const Root = () => {
 			<h1>Hello {user ? user.displayName : 'world'}!</h1>
 			<button onClick={handleSignIn}>Sign in</button>
 			<button onClick={handleSignOut}>Sign Out</button>
+			{user ? (
+				<div>
+					<h1>Lorem ipsum</h1>
+					<p>Lorem ipsum dolor sit amet.</p>
+				</div>
+			) : null}
 		</div>
 	);
 };
