@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { initializeApp } from 'firebase/app';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { Root } from './Root';
+import { AuthProvider } from './providers/AuthProvider';
+import { Root } from './routes/Root';
+import { ProtectedRoute } from './helpers/ProtectedRoute';
+import { Posts } from './routes/Posts';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCADj3V-1hfxVB2BEgDCWlbrvei2LMLDHY',
@@ -13,12 +17,25 @@ const firebaseConfig = {
 	appId: '1:895150143193:web:b4a26c7472ac3f2145b0c8',
 };
 
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route path='/' element={<Root />}>
+			<Route index element={<p>Hello React Router!</p>} />
+			<Route path='posts' element={<ProtectedRoute />}>
+				<Route index element={<Posts />} />
+			</Route>
+		</Route>
+	)
+);
+
 export const app = initializeApp(firebaseConfig);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<Root />
+		<AuthProvider>
+			<RouterProvider router={router} />
+		</AuthProvider>
 	</React.StrictMode>
 );

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { auth, provider } from './main';
+import { auth, provider } from '../main';
 
-export const Root = () => {
+const AuthContext = createContext({});
+
+export const AuthProvider = ({ children }: any) => {
 	const [user, setUserData] = useState<any>(null);
 
 	onAuthStateChanged(auth, user => {
@@ -30,17 +32,15 @@ export const Root = () => {
 		}
 	};
 
-	return (
-		<div>
-			<h1>Hello {user ? user.displayName : 'world'}!</h1>
-			<button onClick={handleSignIn}>Sign in</button>
-			<button onClick={handleSignOut}>Sign Out</button>
-			{user ? (
-				<div>
-					<h1>Lorem ipsum</h1>
-					<p>Lorem ipsum dolor sit amet.</p>
-				</div>
-			) : null}
-		</div>
-	);
+	return <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }}>{children}</AuthContext.Provider>;
+};
+
+export const useAuth = () => {
+	const auth: any = useContext(AuthContext);
+
+	if (!auth) {
+		throw Error('useAuth needs to be used inside AuthContext Provider');
+	}
+
+	return auth;
 };
