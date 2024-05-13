@@ -7,6 +7,7 @@ import { AuthProvider } from './providers/AuthProvider';
 import { Root } from './routes/Root';
 import { ProtectedRoute } from './helpers/ProtectedRoute';
 import { Posts } from './routes/Posts';
+import './main.styles.scss'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCADj3V-1hfxVB2BEgDCWlbrvei2LMLDHY',
@@ -16,6 +17,10 @@ const firebaseConfig = {
 	messagingSenderId: '895150143193',
 	appId: '1:895150143193:web:b4a26c7472ac3f2145b0c8',
 };
+
+export const app = initializeApp(firebaseConfig);
+export const provider = new GoogleAuthProvider();
+export const auth = getAuth(app);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -27,10 +32,6 @@ const router = createBrowserRouter(
 		</Route>
 	)
 );
-
-export const app = initializeApp(firebaseConfig);
-export const provider = new GoogleAuthProvider();
-export const auth = getAuth(app);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
