@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { initializeApp } from 'firebase/app';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 import { AuthProvider } from './providers/AuthProvider';
 import { Root } from './routes/Root';
 import { ProtectedRoute } from './helpers/ProtectedRoute';
 import { Posts } from './routes/Posts';
-import './main.styles.scss'
+import './main.styles.scss';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCADj3V-1hfxVB2BEgDCWlbrvei2LMLDHY',
@@ -21,6 +22,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -34,9 +36,9 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<AuthProvider>
 			<RouterProvider router={router} />
 		</AuthProvider>
-	</React.StrictMode>
+	// </React.StrictMode>
 );
