@@ -1,28 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { initializeApp } from 'firebase/app';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
 import { AuthProvider } from './providers/AuthProvider';
-import { Root } from './routes/Root';
 import { ProtectedRoute } from './helpers/ProtectedRoute';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { Posts } from './routes/Posts';
+import { Root } from './routes/Root';
 import './main.styles.scss';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyCADj3V-1hfxVB2BEgDCWlbrvei2LMLDHY',
-	authDomain: 'fir-recipes-fbe67.firebaseapp.com',
-	projectId: 'fir-recipes-fbe67',
-	storageBucket: 'fir-recipes-fbe67.appspot.com',
-	messagingSenderId: '895150143193',
-	appId: '1:895150143193:web:b4a26c7472ac3f2145b0c8',
+	apiKey: 'AIzaSyAkFNS1KejjT29wsjWFsAIxg_P_Wy9PpT0',
+	authDomain: 'fir-recipes-2-dcfd9.firebaseapp.com',
+	projectId: 'fir-recipes-2-dcfd9',
+	storageBucket: 'fir-recipes-2-dcfd9.appspot.com',
+	messagingSenderId: '178067684354',
+	appId: '1:178067684354:web:9ed19603c24abf85d9fb1b',
 };
 
 export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
-export const storage = getStorage(app);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -36,9 +36,9 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	// <React.StrictMode>
+	<React.StrictMode>
 		<AuthProvider>
 			<RouterProvider router={router} />
 		</AuthProvider>
-	// </React.StrictMode>
+	</React.StrictMode>
 );
