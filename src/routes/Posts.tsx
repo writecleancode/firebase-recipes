@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { arrayRemove, arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, onSnapshot, query, updateDoc } from 'firebase/firestore';
 import { useAuth } from '../providers/AuthProvider';
 import { db } from '../main';
 import './Posts.styles.scss';
