@@ -1,9 +1,9 @@
-import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { useState } from 'react';
+import { User, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, provider } from './main';
 
 export const Root = () => {
-	const [user, setUser] = useState<any>(null);
+	const [user, setUser] = useState<User | null>(null);
 
 	onAuthStateChanged(auth, user => {
 		if (user) {
