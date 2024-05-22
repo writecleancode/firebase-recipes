@@ -1,26 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { initializeApp } from 'firebase/app';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { AuthProvider } from './providers/AuthProvider';
-import { ProtectedRoute } from './helpers/ProtectedRoute';
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { Posts } from './routes/Posts';
 import { Root } from './routes/Root';
+import { ProtectedRoute } from './helpers/ProtectedRoute';
+import { Posts } from './routes/Posts';
 import './main.styles.scss';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyAkFNS1KejjT29wsjWFsAIxg_P_Wy9PpT0',
-	authDomain: 'fir-recipes-2-dcfd9.firebaseapp.com',
-	projectId: 'fir-recipes-2-dcfd9',
-	storageBucket: 'fir-recipes-2-dcfd9.appspot.com',
-	messagingSenderId: '178067684354',
-	appId: '1:178067684354:web:9ed19603c24abf85d9fb1b',
+	apiKey: 'AIzaSyDOf6V9R13LJjiecO2fntrjyoUFmC0MMP8',
+	authDomain: 'fir-test2-dbc70.firebaseapp.com',
+	projectId: 'fir-test2-dbc70',
+	storageBucket: 'fir-test2-dbc70.appspot.com',
+	messagingSenderId: '99550911878',
+	appId: '1:99550911878:web:d83652c2872990321da007',
 };
 
-export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
 
