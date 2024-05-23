@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { AuthProvider } from './providers/AuthProvider';
 import { Root } from './routes/Root';
@@ -10,17 +11,18 @@ import { Posts } from './routes/Posts';
 import './main.styles.scss';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDOf6V9R13LJjiecO2fntrjyoUFmC0MMP8',
-	authDomain: 'fir-test2-dbc70.firebaseapp.com',
-	projectId: 'fir-test2-dbc70',
-	storageBucket: 'fir-test2-dbc70.appspot.com',
-	messagingSenderId: '99550911878',
-	appId: '1:99550911878:web:d83652c2872990321da007',
+	apiKey: 'AIzaSyCADj3V-1hfxVB2BEgDCWlbrvei2LMLDHY',
+	authDomain: 'fir-recipes-fbe67.firebaseapp.com',
+	projectId: 'fir-recipes-fbe67',
+	storageBucket: 'fir-recipes-fbe67.appspot.com',
+	messagingSenderId: '895150143193',
+	appId: '1:895150143193:web:b4a26c7472ac3f2145b0c8',
 };
 
 const app = initializeApp(firebaseConfig);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -34,9 +36,9 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<AuthProvider>
-			<RouterProvider router={router} />
-		</AuthProvider>
-	</React.StrictMode>
+	// <React.StrictMode>
+	<AuthProvider>
+		<RouterProvider router={router} />
+	</AuthProvider>
+	// </React.StrictMode>
 );
