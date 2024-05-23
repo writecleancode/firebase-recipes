@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import { AuthProvider } from './providers/AuthProvider';
-import { ProtectedRoute } from './helpers/ProtectedRoute';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { Posts } from './routes/Posts';
+import { getStorage } from 'firebase/storage';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { AuthProvider } from './providers/AuthProvider';
 import { Root } from './routes/Root';
+import { ProtectedRoute } from './helpers/ProtectedRoute';
+import { Posts } from './routes/Posts';
 import './main.styles.scss';
 
 const firebaseConfig = {
@@ -19,10 +20,11 @@ const firebaseConfig = {
 	appId: '1:178067684354:web:9ed19603c24abf85d9fb1b',
 };
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const provider = new GoogleAuthProvider();
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

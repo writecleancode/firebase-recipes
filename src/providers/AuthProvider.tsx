@@ -1,11 +1,25 @@
-import { createContext, useContext, useState } from 'react';
-import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { User, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, provider } from '../main';
 
-const AuthContext = createContext({});
+type AuthContextType = {
+	user: User | null;
+	handleSignIn: () => void;
+	handleSignOut: () => void;
+};
 
-export const AuthProvider = ({ children }: any) => {
-	const [user, setUserData] = useState<any>(null);
+type AuthProviderProps = {
+	children: ReactNode;
+};
+
+const AuthContext = createContext<AuthContextType>({
+	user: null,
+	handleSignIn: () => {},
+	handleSignOut: () => {},
+});
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+	const [user, setUserData] = useState<User | null>(null);
 
 	onAuthStateChanged(auth, user => {
 		if (user) {
@@ -17,8 +31,7 @@ export const AuthProvider = ({ children }: any) => {
 
 	const handleSignIn = async () => {
 		try {
-			const authResult = await signInWithPopup(auth, provider);
-			console.log(authResult.user);
+			await signInWithPopup(auth, provider);
 		} catch (error) {
 			console.log(error);
 		}
@@ -36,7 +49,7 @@ export const AuthProvider = ({ children }: any) => {
 };
 
 export const useAuth = () => {
-	const auth: any = useContext(AuthContext);
+	const auth = useContext(AuthContext);
 
 	if (!auth) {
 		throw Error('useAuth needs to be used inside AuthContext Provider');
